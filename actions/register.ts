@@ -13,20 +13,18 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
   }
 
   const { name, email, password } = vaildatedFields.data;
-  const hashedPassword = await bcrypt.hash(password, 10);
-
   const existingUser = await getUserByEmail(email)
 
   if (existingUser) {
     return { error: "Email already in use!" };
   }
 
-  const user = await db.user.create({
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  await db.user.create({
     data: { name, email, password: hashedPassword },
   });
 
-  console.log(existingUser);
-  console.log(user);
 
   return { success: "User created!" };
 };
