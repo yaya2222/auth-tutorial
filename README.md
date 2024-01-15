@@ -34,3 +34,23 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+
+
+# This was inserted by `prisma init`:
+# Environment variables declared in this file are automatically made available to Prisma.
+# See the documentation for more detail: https://pris.ly/d/prisma-schema#accessing-environment-variables-from-the-schema
+
+# Prisma supports the native connection string format for PostgreSQL, MySQL, SQLite, SQL Server, MongoDB and CockroachDB.
+# See the documentation for all the connection string options: https://pris.ly/d/connection-strings
+
+DATABASE_URL="mongodb+srv://yaya:yaya@cluster0.ygpeef3.mongodb.net/test"
+
+AUTH_SECRET="d18544e7d73464f06eef11a1e84b3b7e"
+
+GITHUB_CLIENT_ID=b0c567f95d6aff825b2e
+GITHUB_CLIENT_SECRET=c3c3233d114c1ffee82b8b0df69a27554d1c9f23
+
+GOOGLE_CLIENT_ID=384557300592-25irn7qphvb4p4kv5i1iugrsats8bmsg.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=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
