@@ -38,6 +38,8 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 
 
+
+
 # This was inserted by `prisma init`:
 # Environment variables declared in this file are automatically made available to Prisma.
 # See the documentation for more detail: https://pris.ly/d/prisma-schema#accessing-environment-variables-from-the-schema
@@ -54,3 +56,5 @@ GITHUB_CLIENT_SECRET=c3c3233d114c1ffee82b8b0df69a27554d1c9f23
 
 GOOGLE_CLIENT_ID=384557300592-25irn7qphvb4p4kv5i1iugrsats8bmsg.apps.googleusercontent.com
 GOOGLE_CLIENT_SECRET=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
+
+RESEND_API_KEY=re_MkXxa832_HikrfKmRrYsRJF45qiwD9iay
