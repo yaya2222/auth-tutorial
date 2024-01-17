@@ -2,9 +2,6 @@ import { auth, signOut } from "@/auth";
 
 export default async function SettingPage() {
   const session = await auth();
-  console.log("**********");
-  console.log(session);
-  console.log("**********");
 
   return (
     <div>

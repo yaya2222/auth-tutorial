@@ -19,7 +19,6 @@ export default {
     }),
     Credentials({
       async authorize(credentials) {
-        console.log(credentials);
         const validatedFileds = LoginSchema.safeParse(credentials)
 
         if (validatedFileds.success) {
