@@ -17,6 +17,8 @@ export const publicRoutes = [
     "/auth/login",
     "/auth/register",
     "/auth/error",
+    "/auth/reset",
+    "/auth/new-password",
   ];
   
   /**
