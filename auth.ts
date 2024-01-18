@@ -1,9 +1,11 @@
 import NextAuth from "next-auth";
-import authConfig from "@/auth.config";
+import { UserRole } from "@prisma/client";
 import { PrismaAdapter } from "@auth/prisma-adapter";
+
+import authConfig from "@/auth.config";
 import { db } from "@/lib/db";
 import { getUserById } from "@/data/user";
-import { UserRole } from "@prisma/client";
+import { getTowFactorConfirmationByUserId } from "./data/two-factor-confirmation";
 
 export const {
   handlers: { GET, POST },
@@ -30,13 +32,25 @@ export const {
 
       const existingUser = await getUserById(user.id)
       
-      //Prevent sign in without emai verification
+      
+      //Prevent sign in without email verification
       if(!existingUser?.emailVerified) return false
+      
+      if(existingUser.isTowFactorEnabled){
+        const twoFactorConfirmation = await getTowFactorConfirmationByUserId(existingUser.id)
+        
+        if(!twoFactorConfirmation) return false
+
+        await db.twoFactorConfirmation.delete({
+          where:{id:twoFactorConfirmation.id}
+        })
+      }
 
       return true
     },
 
     async session({ token, session }) {
+
       if (token.sub && session.user) {
         session.user.id = token.sub;
       }
