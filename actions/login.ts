@@ -13,7 +13,10 @@ import { getTowFactorTokenByEmail } from "@/data/two-factor-token";
 import { db } from "@/lib/db";
 import { getTowFactorConfirmationByUserId } from "@/data/two-factor-confirmation";
 
-export const login = async (values: z.infer<typeof LoginSchema>) => {
+export const login = async (
+  values: z.infer<typeof LoginSchema>,
+  callbackUrl?: string | null
+) => {
   const vaildatedFields = LoginSchema.safeParse(values);
   if (!vaildatedFields.success) {
     return { error: "Invalid field!" };
@@ -38,7 +41,7 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
     return { success: "Confirmation email sent!" };
   }
 
-  if (existingUser.isTowFactorEnabled && existingUser.email) {
+  if (existingUser.isTwoFactorEnabled && existingUser.email) {
     if (code) {
       const twoFactorToken = await getTowFactorTokenByEmail(existingUser.email);
       if (!twoFactorToken) {
@@ -63,7 +66,6 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
         await db.twoFactorConfirmation.delete({
           where: { id: existingConfirmation.id },
         });
-
       }
       await db.twoFactorConfirmation.create({
         data: { userId: existingUser.id },
@@ -75,11 +77,15 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
     }
   }
 
+  console.log("*******");
+  console.log(callbackUrl);
+  
+
   try {
     await signIn("credentials", {
       email,
       password,
-      redirectTo: DEFAULT_LOGIN_REDIRECT,
+      redirectTo: callbackUrl || DEFAULT_LOGIN_REDIRECT,
     });
   } catch (error) {
     if (error instanceof AuthError) {
